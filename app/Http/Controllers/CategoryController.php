@@ -102,4 +102,17 @@ class CategoryController extends Controller
         $category->delete();
         return redirect(route('category.index'))->with('flash', ['type' => 'success', 'message' => 'Category deleted successfully!']);
     }
+
+    /**
+     * Bulk delete categories.
+     */
+    public function bulkDelete($ids)
+    {
+        
+        $ids = explode(',', $ids);
+
+        Category::whereIn('id', $ids)->delete();
+
+        return redirect(route('category.index'))->with('flash', ['type' => 'success', 'message' => 'Selected categories deleted successfully!']);
+    }
 }

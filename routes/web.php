@@ -8,5 +8,6 @@ Route::get('/', function () {
     return Inertia::render('Dashboard');
 });
 
-// Route::resource('category', CategoryController::class)->names('category');
+Route::delete('category/bulk-delete/{ids}', [CategoryController::class, 'bulkDelete'])->name('category.bulkDelete');
+    // ->middleware('auth');
 Route::resource('category', CategoryController::class);

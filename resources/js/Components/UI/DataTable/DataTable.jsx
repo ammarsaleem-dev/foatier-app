@@ -16,6 +16,8 @@ import {
   LucideDelete,
   RemoveFormattingIcon,
 } from "lucide-react";
+import { Link } from "@inertiajs/react";
+import Button from "../Button";
 
 export default function DataTable({
   title = "Data Table",
@@ -24,6 +26,9 @@ export default function DataTable({
   className = "",
   loading = false,
   emptyMessage = "No data available",
+  showBulkActionBar = false,
+  showCreate = false,
+  handleCreate = () => {},
   hasPagination = true,
   hasActions = false,
   hasSelectionCheckbox = false,
@@ -58,17 +63,30 @@ export default function DataTable({
 
   return (
     <div className={`data-table ${className} overflow-x-auto`}>
-      <h2 className="text-2xl">{title}</h2>
+      <div className="flex justify-between items-center p-2">
+        <h2 className="text-2xl">{title}</h2>
+        <Button
+          as="button"
+          label="Create"
+          onClick={handleCreate}
+          hidden={!showCreate}
+          variant="primary"
+        >
+          Create
+        </Button>
+      </div>
       <div className="flex flex-row justify-between items-center p-2">
         <RowsNumber
           isDisabled={false}
           value={perPage}
           onChange={handleNumberOfRowsChange}
         />
-        <BulkActionBar
-          selectedItems={selectedRows}
-          onDelete={handleBulkDelete}
-        />
+        {showBulkActionBar && (
+          <BulkActionBar
+            selectedItems={selectedRows}
+            onDelete={handleBulkDelete}
+          />
+        )}
         {hasSearchInput && (
           <SearchInput
             onSearch={(query) => setSearchQuery(query)}
@@ -123,7 +141,6 @@ export default function DataTable({
                       {col.value == "created_at" || col.value == "updated_at"
                         ? new Date(row[col.value]).toLocaleString()
                         : row[col.value]}
-                      {/* {row[col.value]} */}
                     </td>
                   ))}
                   {hasActions && (

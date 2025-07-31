@@ -7,7 +7,7 @@ import { useState } from "react";
  * @param {string} onSearch - The query string that changes.
  * @returns JSX Search input element.
  */
-export default function SearchInput({ onSearch ,value}) {
+export default function SearchInput({ onSearch, value }) {
   const [query, setQuery] = useState("");
 
   const handleChange = (e) => {
@@ -21,7 +21,6 @@ export default function SearchInput({ onSearch ,value}) {
       <input
         onChange={handleChange}
         type="text"
-        // value={query}
         value={value}
         placeholder="search here..."
         className="w-full px-2 pl-8 pr-8 border border-gray-400 rounded-md"

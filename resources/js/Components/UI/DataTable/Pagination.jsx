@@ -17,7 +17,7 @@ export default function PaginationLink({ data, perPage }) {
             disabled={!link.url}
             key={idx}
             href={`${link.url}&perPage=${perPage}` || "#"}
-            className={`px-3 py-1 rounded transition duration-200 ${
+            className={`px-3 py-1 rounded transition duration-200 cursor-pointer ${
               link.active
                 ? "bg-blue-500 text-white hover:bg-blue-600"
                 : "bg-gray-200 text-gray-700 hover:bg-gray-300"

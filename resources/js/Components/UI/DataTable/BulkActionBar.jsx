@@ -1,4 +1,5 @@
 import { Link } from "@inertiajs/react";
+import { CircleX, CrossIcon, X } from "lucide-react";
 
 export default function BulkActionBar({
   selectedItems = [],
@@ -14,21 +15,19 @@ export default function BulkActionBar({
         selected
       </div>
 
-      <div className="flex gap-2 ">
-        <Link
-          className="text-red-600 text-sm hover:underline"
-          variant="destructive"
+      <div className="flex gap-2 items-center">
+        <button
+          className="text-red-600 text-sm hover:underline cursor-pointer"
           onClick={onDelete}
         >
           Delete Selected
-        </Link>
-        <Link
-          className="text-gray-600 text-sm hover:underline"
-          variant="outline"
+        </button>
+        <button
+          className="text-gray-500 text-md cursor-pointer"
           onClick={onClear}
         >
-          Cancel
-        </Link>
+          x
+        </button>
       </div>
     </div>
   );
