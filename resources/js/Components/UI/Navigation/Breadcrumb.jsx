@@ -35,7 +35,7 @@ export default function Breadcrumb({ overrides = {} }) {
       className="text-sm text-gray-600 flex items-center"
       aria-label="Breadcrumb"
     >
-      <ol className="list-none inline-flex  space-x-2">
+      <ol className="list-none inline-flex  space-x-2 items-center">
         <li>
           <Link href="/" className="text-sky-600 hover:underline">
             <span>

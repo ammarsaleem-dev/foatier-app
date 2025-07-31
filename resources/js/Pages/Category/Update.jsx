@@ -1,12 +1,10 @@
 import { Head, useForm } from "@inertiajs/react";
-import { useRoute } from "../../../../vendor/tightenco/ziggy/src/js";
-
+import  Button  from "../../Components/UI/Button";
+import { route } from "ziggy-js";
 export default function Update({ category }) {
   const { data, setData, put, processing, errors } = useForm({
     name: category.name,
   });
-
-  const route = useRoute();
 
   function submit(e) {
     e.preventDefault();
@@ -42,7 +40,7 @@ export default function Update({ category }) {
             placeholder="Type your category here."
           ></input>
           {errors.name && <p className="text-red-600">{errors.name}</p>}
-          <button type="submit">Update </button>
+          <Button label="Update" on/>
         </form>
       </div>
     </>

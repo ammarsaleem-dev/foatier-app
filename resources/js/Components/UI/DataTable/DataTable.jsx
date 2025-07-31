@@ -1,23 +1,10 @@
+import { Edit2Icon, EyeIcon, LucideCircleX } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+import Button from "../Button";
 import Pagination from "../DataTable/Pagination";
 import BulkActionBar from "./BulkActionBar";
 import RowsNumber from "./RowsNumber";
 import SearchInput from "./SearchInput";
-import {
-  CrosshairIcon,
-  CrossIcon,
-  Delete,
-  DeleteIcon,
-  Edit,
-  Edit2Icon,
-  EyeClosedIcon,
-  EyeIcon,
-  LucideCircleX,
-  LucideDelete,
-  RemoveFormattingIcon,
-} from "lucide-react";
-import { Link } from "@inertiajs/react";
-import Button from "../Button";
 
 export default function DataTable({
   title = "Data Table",
@@ -29,7 +16,6 @@ export default function DataTable({
   showBulkActionBar = false,
   showCreate = false,
   handleCreate = () => {},
-  hasPagination = true,
   hasActions = false,
   hasSelectionCheckbox = false,
   handleDelete = null,
@@ -76,18 +62,21 @@ export default function DataTable({
         </Button>
       </div>
       <div className="flex flex-row justify-between items-center p-2">
-        <RowsNumber
-          isDisabled={false}
-          value={perPage}
-          onChange={handleNumberOfRowsChange}
-        />
-        {showBulkActionBar && (
+        {data.data.length > 0 && (
+          <RowsNumber
+            isDisabled={false}
+            value={perPage}
+            onChange={handleNumberOfRowsChange}
+          />
+        )}
+        {showBulkActionBar && data.data.length > 0 && (
           <BulkActionBar
             selectedItems={selectedRows}
             onDelete={handleBulkDelete}
+            onClear={onClear}
           />
         )}
-        {hasSearchInput && (
+        {hasSearchInput && data.data.length > 0 && (
           <SearchInput
             onSearch={(query) => setSearchQuery(query)}
             value={searchQuery}
@@ -176,7 +165,7 @@ export default function DataTable({
           </tbody>
         </table>
       )}
-      {hasPagination && (
+      {data.data.length > 0 && (
         <div className="pagination">
           <Pagination data={data.links} perPage={perPage} query={searchQuery} />
         </div>

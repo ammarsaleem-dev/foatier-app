@@ -124,13 +124,12 @@ export default function Browse({ categories }) {
         showBulkActionBar={showBulk}
         showCreate={true}
         handleCreate={handleCreate}
-        hasPagination
-        hasSelectionCheckbox
-        hasSearchInput
+        hasSelectionCheckbox = {true}
+        hasSearchInput = {true}
         className="my-custom-class"
         loading={false}
         emptyMessage="No categories available"
-        hasActions
+        hasActions = {true}
         handleDelete={handleDelete}
         handleShow={handleShow}
         handleEdit={handleEdit}

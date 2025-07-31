@@ -1,5 +1,4 @@
-import { Link } from "@inertiajs/react";
-import { CircleX, CrossIcon, X } from "lucide-react";
+import { X } from "lucide-react";
 
 export default function BulkActionBar({
   selectedItems = [],
@@ -26,7 +25,7 @@ export default function BulkActionBar({
           className="text-gray-500 text-md cursor-pointer"
           onClick={onClear}
         >
-          x
+          <X size={15}/>
         </button>
       </div>
     </div>
