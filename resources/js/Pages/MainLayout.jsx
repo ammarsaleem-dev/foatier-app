@@ -1,9 +1,8 @@
 import { usePage } from "@inertiajs/react";
-import Breadcrumb from "../Components/UI/Navigation/Breadcrumb";
+import Footer from "../Components/Layouts/Footer";
+import FlashMessage from "../Components/UI/FlashMessage";
 import Navbar from "../Components/UI/Navigation/Navbar";
 import Sidebar from "../Components/UI/Navigation/Sidebar";
-import FlashMessage from "../Components/UI/FlashMessage";
-import Footer from "../Components/Layouts/Footer";
 
 export default function MainLayout({ children }) {
   const { flash } = usePage().props; // Uncomment if you have flash messages
@@ -17,8 +16,7 @@ export default function MainLayout({ children }) {
 
         <FlashMessage type={flash?.type} message={flash?.message} />
         {/* Main content area */}
-        <main className="flex-1 p-6 overflow-y-auto">
-         
+        <main className="flex-1 py-2 px-6 overflow-y-auto">
           <div className="mt-4">{children}</div>
         </main>
         <Footer />

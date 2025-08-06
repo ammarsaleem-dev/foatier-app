@@ -21,10 +21,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-         Inertia::share([
-        'auth' => fn () => [
-            'user' => Auth::user(),
-        ],
-    ]);
+        Inertia::share([
+            'auth' => fn() => [
+                'user' => Auth::user(),
+            ],
+        ]);
+        Inertia::share('translations', fn() => trans('messages'));
+        Inertia::share('locale', fn() => app()->getLocale());
     }
 }

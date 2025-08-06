@@ -28,7 +28,7 @@ export default function DataTable({
   onClear = () => {},
   hasSearchInput = false,
   handleNumberOfRowsChange = () => {},
-  perPage,
+  perPage = 10,
 }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");

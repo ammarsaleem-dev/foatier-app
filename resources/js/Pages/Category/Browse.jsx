@@ -139,6 +139,7 @@ export default function Browse({ categories }) {
         handleBulkDelete={handleBulkDelete}
         onClear={handleClear}
         handleNumberOfRowsChange={handleRowsChange}
+        
       />
       <DeleteModal
         title={selectedCategory?.name || ""}

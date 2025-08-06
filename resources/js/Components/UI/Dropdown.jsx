@@ -2,14 +2,14 @@ import { useState } from "react";
 
 export default function Dropdown({ label = "Select", items = [] }) {
   const [open, setOpen] = useState(false);
-  console.log(open);
+  console.log(items);
   return (
-    <div className="relative inline-block text-gray-500 text-sm">
+    <div className="relative inline-block text-gray-500 text-sm z-2">
       <button
         onClick={() => setOpen(!open)}
         className={`px-4 py-2 rounded cursor-pointer ${
           open ? "bg-gray-100" : ""
-        } `}
+        }`}
       >
         {label}
         <svg
@@ -30,18 +30,19 @@ export default function Dropdown({ label = "Select", items = [] }) {
         </svg>
       </button>
       {open && (
-        <ul className="absolute left-0 mt-1 bg-white border border-gray-100 rounded shadow">
+        <ul className="absolute  left-0 mt-1 bg-white border border-gray-100 rounded shadow">
           {items.map((item, index) => (
-            <li
-              type="submit"
-              key={index}
-              className="px-4 py-2 hover:bg-gray-100 hover:text-gray-800 cursor-pointer "
-              onClick={() => {
-                setOpen(false);
-                item.onClick && item.onClick();
-              }}
-            >
-              {item.label}
+            <li key={index}>
+              <button
+                type="button"
+                className="w-full px-4 py-2 hover:bg-gray-100 hover:text-gray-800 cursor-pointer flex"
+                onClick={(e) => {
+                  setOpen(false);
+                  item.onClick && item.onClick();
+                }}
+              >
+                {item.label}
+              </button>
             </li>
           ))}
         </ul>

@@ -6,7 +6,7 @@ export default function Footer() {
     //     <p>version 1.0.0</p>
     //   </div>
     // </footer>
-    <footer className="flex flex-row justify-between bg-white px-6 py-2 border border-gray-200 text-gray-500">
+    <footer className="flex flex-row justify-between bg-white px-6 py-2 border border-gray-200 text-gray-500 z-0 shadow">
       <p>Foatier App Managing System © {new Date().getFullYear()}</p>
       <p>version 1.0.0</p>
     </footer>

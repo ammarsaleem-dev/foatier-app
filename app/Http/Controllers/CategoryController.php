@@ -12,7 +12,7 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $perPage = $request->input('perPage');
+        $perPage = $request->input('perPage') ?? 10;
         $categories = Category::orderBy('created_at', 'desc')->paginate($perPage);
         return inertia('Category/Browse', ['categories' => $categories]);
     }

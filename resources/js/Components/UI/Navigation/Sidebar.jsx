@@ -1,14 +1,13 @@
 import { Link, usePage } from "@inertiajs/react";
-import { LayoutDashboard, Tag } from "lucide-react";
+import { LayoutDashboard, Settings, Tag } from "lucide-react";
+import { route } from "ziggy-js";
 import Logo from "../Logo";
-import {route} from 'ziggy-js';
 
 export default function Sidebar() {
   const { url, component } = usePage();
-  // const route = useRoute();
 
   const style = {
-    active: "bg-sky-100 text-sky-950 font-semibold",
+    active: "bg-sky-100 text-sky-950 font-medium",
     inactive: "hover:bg-sky-800 text-gray-300 hover:text-white",
     iconBase: "mr-2 w-5 h-5",
   };
@@ -54,16 +53,22 @@ export default function Sidebar() {
         ))}
       </nav>
 
-      <nav className="p-4 space-y-2 border-t border-sky-800">
-        {["Profile", "Settings"].map((label) => (
-          <a
-            key={label}
-            href="#"
-            className="block py-2 px-3 rounded transition-colors hover:bg-sky-800"
-          >
-            {label}
-          </a>
-        ))}
+      <nav className="py-2 px-3 rounded transition-colors duration-200">
+        <Link
+          href="/"
+          className={`flex items-center py-2 px-3 rounded transition-colors duration-200 ${
+            component.startsWith("settings") ? style.active : style.inactive
+          }`}
+        >
+          <Settings
+            className={`${style.iconBase} ${
+              component.startsWith("Settings")
+                ? "text-sky-950"
+                : "text-gray-300 group-hover:text-white"
+            }`}
+          />
+          Settings
+        </Link>
       </nav>
     </aside>
   );

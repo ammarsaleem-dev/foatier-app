@@ -69,7 +69,7 @@ function Login() {
           ))}
 
           <button
-            className="bg-sky-700 font-medium text-white p-2 rounded w-full"
+            className="bg-sky-700 font-medium text-white p-2 rounded w-full cursor-pointer"
             type="submit"
           >
             Login

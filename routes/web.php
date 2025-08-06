@@ -5,6 +5,16 @@ use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+// Manage Locale en , ar
+Route::get('/lang/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'ar'])) {
+        session(['locale' => $locale]);
+    } 
+    return redirect()->back();
+})->name('lang.switch');
+
+
+
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -14,6 +24,8 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
+
+
 
 Route::get('/', fn ()=> Inertia::render('Dashboard'));
 Route::delete('category/bulk-delete/{ids}', [CategoryController::class, 'bulkDelete'])->name('category.bulkDelete');   
