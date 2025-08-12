@@ -31,14 +31,14 @@ export default function Navbar() {
         />
         {/* User */}
         <Dropdown
-          label={auth.user.name}
+           label={auth.user.name}
           items={[
             {
-              label: "Profile",
+              label:  `${translations.auth.profile}`,
               onClick: () => router.visit("/profile"),
             },
             {
-              label: "Logout",
+              label: `${translations.auth.logout}`,
               onClick: () => router.post("/logout"),
             },
           ]}

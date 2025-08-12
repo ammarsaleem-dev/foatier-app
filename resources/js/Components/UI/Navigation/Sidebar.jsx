@@ -5,6 +5,7 @@ import Logo from "../Logo";
 
 export default function Sidebar() {
   const { url, component } = usePage();
+  const { translations } = usePage().props;
 
   const style = {
     active: "bg-sky-100 text-sky-950 font-medium",
@@ -14,13 +15,13 @@ export default function Sidebar() {
 
   const navItems = [
     {
-      name: "Dashboard",
+      name: translations.sidebar.dashboard,
       href: "/",
       icon: LayoutDashboard,
       isActive: url === "/",
     },
     {
-      name: "Categories",
+      name: translations.sidebar.categories,
       href: route("category.index"),
       icon: Tag,
       isActive: component.startsWith("Category"),
@@ -67,7 +68,7 @@ export default function Sidebar() {
                 : "text-gray-300 group-hover:text-white"
             }`}
           />
-          Settings
+          {translations.sidebar.settings}
         </Link>
       </nav>
     </aside>

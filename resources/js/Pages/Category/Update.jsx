@@ -1,10 +1,12 @@
-import { Head, useForm } from "@inertiajs/react";
-import  Button  from "../../Components/UI/Button";
+import { Head, useForm, usePage } from "@inertiajs/react";
+import Button from "../../Components/UI/Button";
 import { route } from "ziggy-js";
 export default function Update({ category }) {
   const { data, setData, put, processing, errors } = useForm({
     name: category.name,
   });
+
+  const { translations } = usePage().props;
 
   function submit(e) {
     e.preventDefault();
@@ -23,7 +25,7 @@ export default function Update({ category }) {
       <Head title="Update" />
       <div className="bg-white shadow ">
         <h1 className="p-3 text-xl font-gray-500 text-center">
-          Update Category
+          {translations.category.category_update}
         </h1>
         <form
           onSubmit={submit}
@@ -40,7 +42,7 @@ export default function Update({ category }) {
             placeholder="Type your category here."
           ></input>
           {errors.name && <p className="text-red-600">{errors.name}</p>}
-          <Button label="Update" on/>
+          <Button label={translations.actions.update} on />
         </form>
       </div>
     </>

@@ -1,4 +1,4 @@
-import { Head, router } from "@inertiajs/react";
+import { Head, router, usePage } from "@inertiajs/react";
 import { useState } from "react";
 import { route } from "ziggy-js";
 import DataTable from "../../Components/UI/DataTable/DataTable";
@@ -11,6 +11,7 @@ export default function Browse({ categories }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [perPage, setPerPage] = useState(categories.per_page || 10);
   const allItemIds = categories.data.map((item) => item.id);
+  const {translations} = usePage().props;
 
   const handleDelete = (category) => {
     setIsOpen(true);
@@ -112,24 +113,24 @@ export default function Browse({ categories }) {
     <>
       <Head title="Categories" />
       <DataTable
-        title="Categories"
+        title={translations.category.category_title}
         data={categories}
         columns={[
-          { label: "ID", value: "id" },
-          { label: "Name", value: "name" },
-          { label: "Created At", value: "created_at" },
-          { label: "Updated At", value: "updated_at" },
+          { label: `${translations.category.category_id}`, value: "id" },
+          { label: `${translations.category.category_name}`, value: "name" },
+          { label: `${translations.category.category_created_at}`, value: "created_at" },
+          { label: `${translations.category.category_updated_at}`, value: "updated_at" },
         ]}
         perPage={perPage}
         showBulkActionBar={showBulk}
         showCreate={true}
         handleCreate={handleCreate}
-        hasSelectionCheckbox = {true}
-        hasSearchInput = {true}
+        hasSelectionCheckbox={true}
+        hasSearchInput={true}
         className="my-custom-class"
         loading={false}
         emptyMessage="No categories available"
-        hasActions = {true}
+        hasActions={true}
         handleDelete={handleDelete}
         handleShow={handleShow}
         handleEdit={handleEdit}
@@ -139,7 +140,6 @@ export default function Browse({ categories }) {
         handleBulkDelete={handleBulkDelete}
         onClear={handleClear}
         handleNumberOfRowsChange={handleRowsChange}
-        
       />
       <DeleteModal
         title={selectedCategory?.name || ""}

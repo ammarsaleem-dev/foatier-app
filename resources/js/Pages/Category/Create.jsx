@@ -1,12 +1,11 @@
-import { Head, useForm } from "@inertiajs/react";
-import { useRoute } from "../../../../vendor/tightenco/ziggy";
+import { Head, useForm, usePage } from "@inertiajs/react";
+import { route } from "ziggy-js";
 
 export default function Create() {
   const { data, setData, post, processing, errors } = useForm({
     name: "",
   });
-
-  const route = useRoute();
+  const { translations } = usePage().props;
 
   function submit(e) {
     e.preventDefault();
@@ -18,7 +17,7 @@ export default function Create() {
       <Head title="Create" />
       <div className="bg-white shadow ">
         <h1 className="p-3 text-xl font-gray-500 text-center">
-          Create Category
+          {translations.category.category_create}
         </h1>
         <form
           onSubmit={submit}
@@ -40,7 +39,7 @@ export default function Create() {
             onClick={submit}
             type="submit"
           >
-            Create
+            {translations.actions.create}
           </button>
         </form>
       </div>

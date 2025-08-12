@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Dropdown({ label = "Select", items = [] }) {
+export default function Dropdown({ label = "Select", items = []}) {
   const [open, setOpen] = useState(false);
   console.log(items);
   return (

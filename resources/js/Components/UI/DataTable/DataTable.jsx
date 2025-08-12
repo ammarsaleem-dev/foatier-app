@@ -5,6 +5,7 @@ import Pagination from "../DataTable/Pagination";
 import BulkActionBar from "./BulkActionBar";
 import RowsNumber from "./RowsNumber";
 import SearchInput from "./SearchInput";
+import { usePage } from "@inertiajs/react";
 
 export default function DataTable({
   title = "Data Table",
@@ -32,6 +33,8 @@ export default function DataTable({
 }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
+  const {translations} = usePage().props;
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearchQuery(searchQuery);
@@ -53,7 +56,7 @@ export default function DataTable({
         <h2 className="text-2xl">{title}</h2>
         <Button
           as="button"
-          label="Create"
+          label={translations.actions.create}
           onClick={handleCreate}
           hidden={!showCreate}
           variant="primary"
@@ -109,7 +112,7 @@ export default function DataTable({
                   {col.label}
                 </th>
               ))}
-              {hasActions && <th className="th">Action</th>}
+              {hasActions && <th className="th">{translations.actions.action}</th>}
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-100">
