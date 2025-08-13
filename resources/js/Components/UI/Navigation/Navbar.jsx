@@ -35,7 +35,7 @@ export default function Navbar() {
           items={[
             {
               label:  `${translations.auth.profile}`,
-              onClick: () => router.visit("/profile"),
+              onClick: () => router.get(route('profile')),
             },
             {
               label: `${translations.auth.logout}`,

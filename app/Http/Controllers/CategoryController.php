@@ -32,10 +32,11 @@ class CategoryController extends Controller
     {
          $validated = $request->validate(
             [
-                'name' => 'required'
+                'name' => 'required|unique:categories,name'
             ],
             [
-                'name' => 'Category name is required',
+                'name.required' => 'Category name is required',
+                'name.unique' => 'This name is already exists.'
             ]
         );
 
@@ -75,10 +76,11 @@ class CategoryController extends Controller
         
            $validated = $request->validate(
             [
-                'name' => 'required',
+                'name' => 'required|unique:categories,name,' . $category->name,
             ],
             [
-                'name' => 'Category name is required',
+                'name.required' => 'Category name is required',
+                'name.unique' => 'Category name is existed, try another one.'
             ]
         );
 
