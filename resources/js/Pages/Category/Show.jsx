@@ -23,7 +23,7 @@ export default function Show({ category }) {
             href={route("category.index")}
             className="inline-block text-sm text-gray-600 hover:text-sky-600 transition"
           >
-            ← Back to Categories
+            ← {translations.actions.back}
           </a>
         </div>
       </div>

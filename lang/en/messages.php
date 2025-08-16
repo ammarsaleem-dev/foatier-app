@@ -9,6 +9,7 @@ return [
     ],
 
     'sidebar' => [
+        'welcome'      => 'Welcome',
         'dashboard'    => 'Dashboard',
         'categories'   => 'Categories',
         'products'     => 'Products',
@@ -16,6 +17,9 @@ return [
         'invoices'     => 'Invoices',
         'reports'      => 'Reports',
         'settings'     => 'Settings',
+        'roles'        => 'Roles',
+        'permissions'  => 'Permissions',
+        'adminstration'=> 'Adminstration',
     ],
 
     'actions' => [
@@ -39,6 +43,26 @@ return [
         'category_updated_at'  => 'Updated At',
         'category_update'      => 'Update Category',
         'category_create'      => 'Create Category',
+    ],
+
+    'role' => [
+        'role_title'       => 'Roles',
+        'role_id'          => 'ID',
+        'role_name'        => 'Role Name',
+        'role_created_at'  => 'Created At',
+        'role_updated_at'  => 'Updated At',
+        'role_update'      => 'Update role',
+        'role_create'      => 'Create Role',
+    ],
+
+    'permission' => [
+        'permission_title'       => 'Permissions',
+        'permission_id'          => 'ID',
+        'permission_name'        => 'Permission Name',
+        'permission_created_at'  => 'Created At',
+        'permission_updated_at'  => 'Updated At',
+        'permission_update'      => 'Update Permission',
+        'permission_create'      => 'Create Permission',
     ],
 
     'product' => [

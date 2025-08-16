@@ -2,13 +2,14 @@
 
 return [
 
-    'auth' =>[
+    'auth' => [
         'login'     => 'تسجيل دخول',
         'logout'    => 'تسجيل خروج',
         'profile'   => 'الحساب',
     ],
 
     'sidebar' => [
+        'welcome'      => 'الترحيب',
         'dashboard'    => 'لوحة التحكم',
         'categories'   => 'أصناف المواد',
         'products'     => 'المنتجات',
@@ -16,6 +17,8 @@ return [
         'invoices'     => 'الفواتير',
         'reports'      => 'التقارير',
         'settings'     => 'الإعدادات',
+        'roles'        => 'الادوار',
+        'permissions'  => 'الاذونات'
     ],
 
     'actions' => [
@@ -39,6 +42,26 @@ return [
         'category_updated_at'  => 'تاريخ التحديث',
         'category_update'      => 'تحديث الصنف',
         'category_create'      => 'اضافة الصنف',
+    ],
+
+    'role' => [
+        'role_title'       => 'الادوار',
+        'role_id'          => 'التسلسل',
+        'role_name'        => 'اسم الدور',
+        'role_created_at'  => 'تاريخ الإنشاء',
+        'role_updated_at'  => 'تاريخ التحديث',
+        'role_update'      => 'تحديث الدور',
+        'role_create'      => 'اضافة الدور',
+    ],
+
+    'permission' => [
+        'permission_title'       => 'الاذونات',
+        'permission_id'          => 'التسلسل',
+        'permission_name'        => 'اسم الاذن',
+        'permission_created_at'  => 'تاريخ الإنشاء',
+        'permission_updated_at'  => 'تاريخ التحديث',
+        'permission_update'      => 'تحديث الاذن',
+        'permission_create'      => 'اضافة الاذن',
     ],
 
     'product' => [

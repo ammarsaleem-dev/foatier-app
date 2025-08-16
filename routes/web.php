@@ -3,6 +3,9 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -10,10 +13,9 @@ use Inertia\Inertia;
 Route::get('/lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'ar'])) {
         session(['locale' => $locale]);
-    } 
+    }
     return redirect()->back();
 })->name('lang.switch');
-
 
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -26,10 +28,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
 
-Route::get('/profile',[ProfileController::class, 'index'])->name('profile');
-
-Route::get('/', fn ()=> Inertia::render('Dashboard'));
-Route::delete('category/bulk-delete/{ids}', [CategoryController::class, 'bulkDelete'])->name('category.bulkDelete');   
-Route::resource('category', CategoryController::class);
-
+    Route::get('/', fn() => Inertia::render('Welcome'));
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::delete('category/bulk-delete/{ids}', [CategoryController::class, 'bulkDelete'])->name('category.bulkDelete');
+    Route::resource('category', CategoryController::class);
+    Route::resource('role',RoleController::class);
+    Route::resource('permission',PermissionController::class);
 });

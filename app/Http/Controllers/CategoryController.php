@@ -4,15 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class CategoryController extends Controller
+class CategoryController extends Controller implements HasMiddleware
 {
+
+    public static function middleware()
+    {
+        return [
+            new Middleware('can:viewAny,App\Models\Category', only: ['index']),
+            new Middleware('can:create,App\Models\Category', only: ['create', 'store']),
+            new Middleware('can:view,category', only: ['show']),
+            new Middleware('can:update,category', only: ['edit', 'update']),
+            new Middleware('can:delete,category', only: ['destroy']),
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $perPage = $request->input('perPage') ?? 10;
+        $perPage    = $request->input('perPage') ?? 10;
         $categories = Category::orderBy('created_at', 'desc')->paginate($perPage);
         return inertia('Category/Browse', ['categories' => $categories]);
     }
@@ -30,13 +44,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-         $validated = $request->validate(
+        $validated = $request->validate(
             [
-                'name' => 'required|unique:categories,name'
+                'name' => 'required|unique:categories,name',
             ],
             [
                 'name.required' => 'Category name is required',
-                'name.unique' => 'This name is already exists.'
+                'name.unique'   => 'This name is already exists.',
             ]
         );
 
@@ -46,8 +60,8 @@ class CategoryController extends Controller
             ->with(
                 'flash',
                 [
-                    'type' => 'success',
-                    'message' => 'Category created successfully!'
+                    'type'    => 'success',
+                    'message' => 'Category created successfully!',
                 ]
             );
     }
@@ -73,14 +87,14 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        
-           $validated = $request->validate(
+
+        $validated = $request->validate(
             [
                 'name' => 'required|unique:categories,name,' . $category->name,
             ],
             [
                 'name.required' => 'Category name is required',
-                'name.unique' => 'Category name is existed, try another one.'
+                'name.unique'   => 'Category name is existed, try another one.',
             ]
         );
 
@@ -90,8 +104,8 @@ class CategoryController extends Controller
             ->with(
                 'flash',
                 [
-                    'type' => 'success',
-                    'message' => 'Category updated successfully!'
+                    'type'    => 'success',
+                    'message' => 'Category updated successfully!',
                 ]
             );
     }
@@ -110,7 +124,7 @@ class CategoryController extends Controller
      */
     public function bulkDelete($ids)
     {
-        
+
         $ids = explode(',', $ids);
 
         Category::whereIn('id', $ids)->delete();

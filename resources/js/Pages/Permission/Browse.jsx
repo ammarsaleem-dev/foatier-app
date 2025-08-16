@@ -5,33 +5,33 @@ import DataTable from "../../Components/UI/DataTable/DataTable";
 import DeleteModal from "../../Components/Modals/DeleteModal";
 import useAuth from "../../Components/hooks/useAuth";
 
-export default function Browse({ categories }) {
+export default function Browse({ permissions }) {  
   const [isOpen, setIsOpen] = useState(false);
   const [showBulk, setShowBulk] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [perPage, setPerPage] = useState(categories.per_page || 10);
-  const allItemIds = categories.data.map((item) => item.id);
+  const [selectedPermission, setSelectedPermission] = useState(null);
+  const [perPage, setPerPage] = useState(permissions.per_page || 10);
+  const allItemIds = permissions.data.map((item) => item.id);
   const { translations } = usePage().props;
   const { hasRole, can } = useAuth();
 
-  const handleDelete = (category) => {
+  const handleDelete = (permission) => {
     setIsOpen(true);
-    setSelectedCategory(category);
+    setSelectedPermission(permission);
   };
 
-  const handleShow = (category) => {
-    if (!category) return;
-    router.get(route("category.show", ("category", category)));
+  const handleShow = (permission) => {
+    if (!permission) return;
+    router.get(route("permission.show", ("permission", permission)));
   };
 
-  const handleEdit = (category) => {
-    if (!category) return;
-    router.get(route("category.edit", ("category", category)));
+  const handleEdit = (permission) => {
+    if (!permission) return;
+    router.get(route("permission.edit", ("permission", permission)));
   };
 
   const handleSelectAll = () => {
-    if (selectedItems.length === categories.data.length) {
+    if (selectedItems.length === permissions.data.length) {
       setSelectedItems([]);
       setShowBulk(false);
     } else {
@@ -51,11 +51,11 @@ export default function Browse({ categories }) {
   const handleBulkDelete = (e) => {
     e.preventDefault();
     if (!selectedItems.length) return;
-    if (!confirm("Are you sure you want to delete selected categories?"))
+    if (!confirm("Are you sure you want to delete selected permissions?"))
       return;
 
     router.delete(
-      route("category.bulkDelete", { ids: selectedItems.join(",") }),
+      route("permission.bulkDelete", { ids: selectedItems.join(",") }),
       {
         onSuccess: () => {
           console.log("Bulk delete successful");
@@ -81,7 +81,7 @@ export default function Browse({ categories }) {
     const newPerPage = parseInt(e.target.value);
     setPerPage(newPerPage);
     router.get(
-      route("category.index"),
+      route("permission.index"),
       { perPage: newPerPage },
       {
         preserveScroll: true,
@@ -93,9 +93,9 @@ export default function Browse({ categories }) {
 
   const handleConfirmDelete = (e) => {
     e.preventDefault();
-    if (!selectedCategory) return;
+    if (!selectedPermission) return;
 
-    router.delete(route("category.destroy", selectedCategory), {
+    router.delete(route("permission.destroy", selectedPermission), {
       onSuccess: () => {
         setIsOpen(false);
         setSelectedCategory(null);
@@ -108,32 +108,34 @@ export default function Browse({ categories }) {
 
   const handleCreate = (e) => {
     e.preventDefault();
-    router.get(route("category.create"));
+    router.get(route("permission.create"));
   };
-  console.log(can('category.index'));
   return (
-    <>
-      <Head title="Categories" />
-      {can("category.index") && (
+    <>    
+      <Head title="permissions" />
+      {can("permission.index") && (
         <DataTable
-          title={translations.category.category_title}
-          data={categories}
+          title={translations.permission.permission_title}
+          data={permissions}
           columns={[
-            { label: `${translations.category.category_id}`, value: "id" },
-            { label: `${translations.category.category_name}`, value: "name" },
+            { label: `${translations.permission.permission_id}`, value: "id" },
             {
-              label: `${translations.category.category_created_at}`,
+              label: `${translations.permission.permission_name}`,
+              value: "name",
+            },
+            {
+              label: `${translations.permission.permission_created_at}`,
               value: "created_at",
             },
             {
-              label: `${translations.category.category_updated_at}`,
+              label: `${translations.permission.permission_updated_at}`,
               value: "updated_at",
             },
           ]}
-          canCreate={can("category.create")}
-          canShow={can("category.show")}
-          canUpdate={can("category.update")}
-          canDelete={can("category.delete")}
+          canCreate={can("permission.create")}
+          canShow={can("permission.show")}
+          canUpdate={can("permission.update")}
+          canDelete={can("permission.delete")}
           perPage={perPage}
           showBulkActionBar={showBulk}
           showCreate={true}
@@ -142,7 +144,7 @@ export default function Browse({ categories }) {
           hasSearchInput={true}
           className="my-custom-class"
           loading={false}
-          emptyMessage="No categories available"
+          emptyMessage="No permissions available"
           hasActions={true}
           handleDelete={handleDelete}
           handleShow={handleShow}
@@ -156,8 +158,8 @@ export default function Browse({ categories }) {
         />
       )}
       <DeleteModal
-        title={selectedCategory?.name || ""}
-        message="Are you sure you want to delete this category? This action cannot be undone."
+        title={selectedPermission?.name || ""}
+        message="Are you sure you want to delete this permission? This action cannot be undone."
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         onConfirm={handleConfirmDelete}

@@ -40,9 +40,9 @@ export default function Update({ category }) {
             name="name"
             autoFocus
             placeholder="Type your category here."
-          ></input>
+          />
           {errors.name && <p className="text-red-600">{errors.name}</p>}
-          <Button label={translations.actions.update} on />
+          <Button label={translations.actions.update} />
         </form>
       </div>
     </>

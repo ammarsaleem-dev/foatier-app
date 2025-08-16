@@ -8,12 +8,13 @@ use Illuminate\Auth\Access\Response;
 
 class CategoryPolicy
 {
+
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
-    {
-        return false;
+    {        
+        return $user->hasPermission('category.index');
     }
 
     /**
@@ -21,7 +22,7 @@ class CategoryPolicy
      */
     public function view(User $user, Category $category): bool
     {
-        return false;
+        return $user->hasPermission('category.show');
     }
 
     /**
@@ -29,7 +30,7 @@ class CategoryPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->hasPermission('category.create');
     }
 
     /**
@@ -37,7 +38,7 @@ class CategoryPolicy
      */
     public function update(User $user, Category $category): bool
     {
-        return false;
+        return $user->hasPermission('category.update');
     }
 
     /**
@@ -45,7 +46,7 @@ class CategoryPolicy
      */
     public function delete(User $user, Category $category): bool
     {
-        return false;
+        return $user->hasPermission('category.delete');
     }
 
     /**

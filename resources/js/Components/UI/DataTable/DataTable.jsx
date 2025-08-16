@@ -30,10 +30,14 @@ export default function DataTable({
   hasSearchInput = false,
   handleNumberOfRowsChange = () => {},
   perPage = 10,
+  canCreate = true,
+  canShow = true,
+  canUpdate = true,
+  canDelete = true,
 }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
-  const {translations} = usePage().props;
+  const { translations } = usePage().props;
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -54,7 +58,7 @@ export default function DataTable({
     <div className={`data-table ${className} overflow-x-auto`}>
       <div className="flex justify-between items-center p-2">
         <h2 className="text-2xl">{title}</h2>
-        <Button
+       {canCreate && <Button
           as="button"
           label={translations.actions.create}
           onClick={handleCreate}
@@ -62,7 +66,7 @@ export default function DataTable({
           variant="primary"
         >
           Create
-        </Button>
+        </Button>}
       </div>
       <div className="flex flex-row justify-between items-center p-2">
         {data.data.length > 0 && (
@@ -72,7 +76,7 @@ export default function DataTable({
             onChange={handleNumberOfRowsChange}
           />
         )}
-        {showBulkActionBar && data.data.length > 0 && (
+        {canDelete && showBulkActionBar && data.data.length > 0 && (
           <BulkActionBar
             selectedItems={selectedRows}
             onDelete={handleBulkDelete}
@@ -112,7 +116,9 @@ export default function DataTable({
                   {col.label}
                 </th>
               ))}
-              {hasActions && <th className="th">{translations.actions.action}</th>}
+              {hasActions && (
+                <th className="th">{translations.actions.action}</th>
+              )}
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-100">
@@ -138,29 +144,35 @@ export default function DataTable({
                   {hasActions && (
                     <td className="td flex flex-row space-x-3">
                       {/* Show */}
-                      <EyeIcon
-                        className=" text-green-600 size-4 cursor-pointer "
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleShow(row);
-                        }}
-                      />
+                      {canShow && (
+                        <EyeIcon
+                          className=" text-green-600 size-4 cursor-pointer "
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleShow(row);
+                          }}
+                        />
+                      )}
                       {/* Edit */}
-                      <Edit2Icon
-                        className="text-blue-600 size-4 cursor-pointer "
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleEdit(row);
-                        }}
-                      />
+                      {canUpdate && (
+                        <Edit2Icon
+                          className="text-blue-600 size-4 cursor-pointer "
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleEdit(row);
+                          }}
+                        />
+                      )}
                       {/* Delete */}
-                      <LucideCircleX
-                        className="text-red-600 size-4 cursor-pointer"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleDelete(row);
-                        }}
-                      />
+                      {canDelete && (
+                        <LucideCircleX
+                          className="text-red-600 size-4 cursor-pointer"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleDelete(row);
+                          }}
+                        />
+                      )}
                     </td>
                   )}
                 </tr>

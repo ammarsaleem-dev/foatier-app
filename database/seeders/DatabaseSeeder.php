@@ -14,14 +14,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // use this command
+        // php artisan migrate:fresh --seed
 
         // You can call other seeders here
         Category::factory(50)->create();
+        $this->call([
+            RolesAndPermissionsSeeder::class,
+        ]);
     }
 }
