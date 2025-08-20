@@ -4,10 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Inertia\Inertia;
 
-class PermissionController extends Controller
+class PermissionController extends Controller implements HasMiddleware
 {
+
+        public static function middleware()
+    {
+        return [
+            new Middleware('can:viewAny,App\Models\Permission', only: ['index']),
+            new Middleware('can:create,App\Models\Permission', only: ['create', 'store']),
+            new Middleware('can:view,permission', only: ['show']),
+            new Middleware('can:update,permission', only: ['edit', 'update']),
+            new Middleware('can:delete,permission', only: ['destroy']),
+        ];
+    }
+
+
     public function index(Request $request)
     {
         $perPage = $request->input('perPage')?? 10;

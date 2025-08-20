@@ -110,7 +110,7 @@ export default function Browse({ categories }) {
     e.preventDefault();
     router.get(route("category.create"));
   };
-  console.log(can('category.index'));
+  // console.log('canCreate' , can('category.create'));
   return (
     <>
       <Head title="Categories" />

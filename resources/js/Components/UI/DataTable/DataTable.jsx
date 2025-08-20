@@ -58,15 +58,15 @@ export default function DataTable({
     <div className={`data-table ${className} overflow-x-auto`}>
       <div className="flex justify-between items-center p-2">
         <h2 className="text-2xl">{title}</h2>
-       {canCreate && <Button
-          as="button"
-          label={translations.actions.create}
-          onClick={handleCreate}
-          hidden={!showCreate}
-          variant="primary"
-        >
-          Create
-        </Button>}
+        {canCreate && (
+          <Button
+            as="button"
+            label={translations.actions.create}
+            onClick={handleCreate}
+            hidden={!showCreate}
+            variant="primary"
+          />
+        )}
       </div>
       <div className="flex flex-row justify-between items-center p-2">
         {data.data.length > 0 && (

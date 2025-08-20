@@ -5,7 +5,7 @@ import DataTable from "../../Components/UI/DataTable/DataTable";
 import DeleteModal from "../../Components/Modals/DeleteModal";
 import useAuth from "../../Components/hooks/useAuth";
 
-export default function Browse({ permissions }) {  
+export default function Browse({ permissions }) {
   const [isOpen, setIsOpen] = useState(false);
   const [showBulk, setShowBulk] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
@@ -13,7 +13,7 @@ export default function Browse({ permissions }) {
   const [perPage, setPerPage] = useState(permissions.per_page || 10);
   const allItemIds = permissions.data.map((item) => item.id);
   const { translations } = usePage().props;
-  const { hasRole, can } = useAuth();
+  const { can } = useAuth();
 
   const handleDelete = (permission) => {
     setIsOpen(true);
@@ -98,7 +98,7 @@ export default function Browse({ permissions }) {
     router.delete(route("permission.destroy", selectedPermission), {
       onSuccess: () => {
         setIsOpen(false);
-        setSelectedCategory(null);
+        setSelectedPermission(null);
       },
       onError: (errors) => {
         console.error(errors);
@@ -111,7 +111,7 @@ export default function Browse({ permissions }) {
     router.get(route("permission.create"));
   };
   return (
-    <>    
+    <>
       <Head title="permissions" />
       {can("permission.index") && (
         <DataTable

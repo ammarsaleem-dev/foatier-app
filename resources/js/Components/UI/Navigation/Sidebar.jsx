@@ -63,10 +63,11 @@ export default function Sidebar() {
           name: translations.sidebar.users,
           href: route("user.index"),
           icon: Users,
-          isActive: component.startsWith("Permission"),
+          isActive: component.startsWith("User"),
         },
       ],
     },
+    
   ];
 
   // ✅ Automatically open dropdown if one of its children is active
@@ -83,18 +84,21 @@ export default function Sidebar() {
 
       <nav className="flex-1 p-4 space-y-1">
         {navItems.map(
-          ({
-            name,
-            href,
-            icon: Icon,
-            isActive,
-            permission = true,
-            isDropDown = false,
-            navGroup,
-          }) =>
+          (
+            {
+              name,
+              href,
+              icon: Icon,
+              isActive,
+              permission = true,
+              isDropDown = false,
+              navGroup,
+            },
+            index
+          ) =>
             !permission ? null : !isDropDown ? (
               <Link
-                key={name}
+                key={index}
                 href={href}
                 className={`flex items-center py-2 px-3 rounded transition-colors duration-200 ${
                   isActive ? style.active : style.inactive
@@ -112,7 +116,7 @@ export default function Sidebar() {
               </Link>
             ) : (
               <div
-                key={name}
+                key={index}
                 className={`relative ${
                   open ? "bg-sky-800" : "bg-sky-900"
                 } rounded transition-colors duration-200 ${
@@ -149,7 +153,7 @@ export default function Sidebar() {
                   </svg>
                 </button>
                 {open && (
-                  <ul className="absolute flex flex-col w-full bg-sky-800">
+                  <ul className="relative flex flex-col w-full bg-sky-800">
                     {navGroup.map(
                       ({
                         name,
@@ -162,7 +166,7 @@ export default function Sidebar() {
                           <li key={name}>
                             <Link
                               href={href}
-                              className={`flex items-center py-2 px-3 rounded transition-colors duration-200 ${
+                              className={`flex items-center py-2 pl-8 rounded transition-colors duration-200 ${
                                 isActive ? style.active : style.inactive
                               }`}
                               aria-current={isActive ? "page" : undefined}
