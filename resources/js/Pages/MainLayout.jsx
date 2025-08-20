@@ -11,7 +11,7 @@ export default function MainLayout({ children }) {
     <div className="flex h-screen bg-gray-100">
       <Sidebar />
 
-      <div className="flex flex-col flex-1">
+      <div className="flex flex-col flex-1 ">
         <Navbar />
 
         <FlashMessage type={flash?.type} message={flash?.message} />

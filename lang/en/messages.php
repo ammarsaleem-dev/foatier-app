@@ -17,9 +17,10 @@ return [
         'invoices'     => 'Invoices',
         'reports'      => 'Reports',
         'settings'     => 'Settings',
+        'adminstration'=> 'Adminstration',
         'roles'        => 'Roles',
         'permissions'  => 'Permissions',
-        'adminstration'=> 'Adminstration',
+        'users'        => 'Users'
     ],
 
     'actions' => [

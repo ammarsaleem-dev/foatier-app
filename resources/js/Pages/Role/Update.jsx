@@ -1,6 +1,7 @@
 import { Head, useForm, usePage } from "@inertiajs/react";
 import Button from "../../Components/UI/Button";
-import { ShieldAlert, ShieldCheck, ShieldIcon } from "lucide-react";
+import { ChevronDown, ChevronRight } from "lucide-react";
+import { useState } from "react";
 
 export default function Update({ role, permissions }) {
   const { translations } = usePage().props;
@@ -25,6 +26,26 @@ export default function Update({ role, permissions }) {
     put(route("role.update", role));
   };
 
+  // 🔹 Group permissions by prefix (before ".")
+  const groupedPermissions = permissions.reduce((acc, perm) => {
+    const [group, action] = perm.name.split(".");
+    if (!acc[group]) acc[group] = [];
+    acc[group].push(perm);
+    return acc;
+  }, {});
+
+  // 🔹 Track which groups are expanded
+  const [openGroups, setOpenGroups] = useState(
+    Object.keys(groupedPermissions).reduce((acc, g) => {
+      acc[g] = false; // start collapsed
+      return acc;
+    }, {})
+  );
+
+  const toggleGroup = (group) => {
+    setOpenGroups((prev) => ({ ...prev, [group]: !prev[group] }));
+  };
+
   return (
     <>
       <Head title="Update" />
@@ -35,6 +56,7 @@ export default function Update({ role, permissions }) {
           onSubmit={submit}
           className="flex flex-col w-1/2 mx-auto p-4 space-y-5"
         >
+          {/* Role name input */}
           <input
             className={`border rounded-lg p-2 ${
               errors.name ? "border-red-600" : "border-gray-300"
@@ -43,62 +65,65 @@ export default function Update({ role, permissions }) {
             onChange={(e) => setData("name", e.target.value)}
             placeholder="Type your role here."
           />
-          {permissions && permissions.length > 0 ? (
-            <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {permissions.map((perm) => (
-                <label
-                  key={perm.id}
-                  className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-lg px-4 py-2"
+
+          {/* Grouped permissions with collapsible cards */}
+          {Object.keys(groupedPermissions).length > 0 ? (
+            <div className="mt-6 space-y-4">
+              {Object.entries(groupedPermissions).map(([group, perms]) => (
+                <div
+                  key={group}
+                  className="border rounded-xl shadow-sm overflow-hidden"
                 >
-                  <input
-                    type="checkbox"
-                    checked={data.permissions.includes(perm.id)}
-                    onChange={() => togglePermission(perm.id)}
-                  />
-                  {perm.name}
-                </label>
+                  {/* Group Header */}
+                  <button
+                    type="button"
+                    onClick={() => toggleGroup(group)}
+                    className="w-full flex justify-between items-center px-4 py-3 bg-gray-100 hover:bg-gray-200"
+                  >
+                    <span className="text-lg font-semibold capitalize">
+                      {group}
+                    </span>
+                    {openGroups[group] ? (
+                      <ChevronDown className="w-5 h-5" />
+                    ) : (
+                      <ChevronRight className="w-5 h-5" />
+                    )}
+                  </button>
+
+                  {/* Collapsible body */}
+                  {openGroups[group] && (
+                    <ul className="grid lg:grid-cols-2 sm:grid-cols-1 gap-3 p-4 bg-white">
+                      {perms.map((perm) => (
+                        <label
+                          key={perm.id}
+                          className={`flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-lg px-4 py-2 ${
+                            data.permissions.includes(perm.id)
+                              ? "border-green-300 transition-colors duration-200"
+                              : ""
+                          }`}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={data.permissions.includes(perm.id)}
+                            onChange={() => togglePermission(perm.id)}
+                          />
+                          {perm.name.split(".")[1]} {/* action only */}
+                        </label>
+                      ))}
+                    </ul>
+                  )}
+                </div>
               ))}
-            </ul>
+            </div>
           ) : (
             <p className="mt-4 text-gray-500 italic">
               {translations.role.no_permissions}
             </p>
           )}
+
           <Button label={translations.actions.update} />
         </form>
       </div>
     </>
   );
-
-  // return (
-  // <div>
-  //   <h1>Edit Role</h1>
-  //   <form onSubmit={submit}>
-  //     <div>
-  //       <label>Name:</label>
-  //       <input
-  //         value={data.name}
-  //         onChange={(e) => setData("name", e.target.value)}
-  //       />
-  //       {errors.name && <div style={{ color: "red" }}>{errors.name}</div>}
-  //     </div>
-
-  //     <div style={{ marginTop: "20px" }}>
-  //       <h3>Assign Permissions</h3>
-  //       {permissions.map((perm) => (
-  //         <label key={perm.id} style={{ display: "block" }}>
-  //           <input
-  //             type="checkbox"
-  //             checked={data.permissions.includes(perm.id)}
-  //             onChange={() => togglePermission(perm.id)}
-  //           />
-  //           {perm.name}
-  //         </label>
-  //       ))}
-  //     </div>
-
-  //     <button type="submit" style={{ marginTop: "20px" }}>Update</button>
-  //   </form>
-  // </div>
-  // );
 }

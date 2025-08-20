@@ -19,6 +19,7 @@ return [
         'settings'     => 'الإعدادات',
         'roles'        => 'الادوار',
         'permissions'  => 'الاذونات'
+        
     ],
 
     'actions' => [

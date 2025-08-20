@@ -11,7 +11,7 @@ export default function Browse({ roles }) {
   const [selectedRole, setSelectedRole] = useState(null);
   const [perPage, setPerPage] = useState(roles.per_page || 10);
   const allItemIds = roles.data.map((item) => item.id);
-  const {translations} = usePage().props;
+  const { translations } = usePage().props;
 
   const handleDelete = (role) => {
     setIsOpen(true);
@@ -49,22 +49,18 @@ export default function Browse({ roles }) {
   const handleBulkDelete = (e) => {
     e.preventDefault();
     if (!selectedItems.length) return;
-    if (!confirm("Are you sure you want to delete selected roles?"))
-      return;
+    if (!confirm("Are you sure you want to delete selected roles?")) return;
 
-    router.delete(
-      route("role.bulkDelete", { ids: selectedItems.join(",") }),
-      {
-        onSuccess: () => {
-          console.log("Bulk delete successful");
-          setSelectedItems([]);
-          setShowBulk(false);
-        },
-        onError: (errors) => {
-          console.error(errors);
-        },
-      }
-    );
+    router.delete(route("role.bulkDelete", { ids: selectedItems.join(",") }), {
+      onSuccess: () => {
+        console.log("Bulk delete successful");
+        setSelectedItems([]);
+        setShowBulk(false);
+      },
+      onError: (errors) => {
+        console.error(errors);
+      },
+    });
     setSelectedItems([]);
     setShowBulk(false);
   };
@@ -118,8 +114,14 @@ export default function Browse({ roles }) {
         columns={[
           { label: `${translations.role.role_id}`, value: "id" },
           { label: `${translations.role.role_name}`, value: "name" },
-          { label: `${translations.role.role_created_at}`, value: "created_at" },
-          { label: `${translations.role.role_updated_at}`, value: "updated_at" },
+          {
+            label: `${translations.role.role_created_at}`,
+            value: "created_at",
+          },
+          {
+            label: `${translations.role.role_updated_at}`,
+            value: "updated_at",
+          },
         ]}
         perPage={perPage}
         showBulkActionBar={showBulk}
@@ -151,7 +153,6 @@ export default function Browse({ roles }) {
     </>
   );
 }
-
 
 // import { Link, router, usePage } from "@inertiajs/react";
 // import { route } from 'ziggy-js';

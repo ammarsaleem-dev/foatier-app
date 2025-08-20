@@ -5,10 +5,25 @@ namespace App\Http\Controllers;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Inertia\Inertia;
 
-class RoleController extends Controller
+class RoleController extends Controller implements HasMiddleware
 {    
+
+    public static function middleware()
+    {
+        return [
+            new Middleware('can:viewAny,App\Models\Role', only: ['index']),
+            new Middleware('can:create,App\Models\Role', only: ['create', 'store']),
+            new Middleware('can:view,role', only: ['show']),
+            new Middleware('can:update,role', only: ['edit', 'update']),
+            new Middleware('can:delete,role', only: ['destroy']),
+        ];
+    }
+
+
     /**
      * index
      *
@@ -43,7 +58,7 @@ class RoleController extends Controller
     {
         $request->validate(['name' => 'required|unique:roles,name']);
         Role::create($request->only('name'));
-        return redirect()->route('roles.index')->with('success', 'Role created successfully.');
+        return redirect()->route('role.index')->with('success', 'Role created successfully.');
     }
 
     

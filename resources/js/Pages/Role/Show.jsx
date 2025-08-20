@@ -34,7 +34,7 @@ export default function Show({ role }) {
           </h2>
             
           {role.permissions && role.permissions.length > 0 ? (
-            <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 overflow-auto">
               {role.permissions.map((permission) => (
                 <li
                   key={permission.id}
