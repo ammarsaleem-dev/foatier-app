@@ -105,7 +105,7 @@ export default function Sidebar() {
               <Link
                 key={index}
                 href={href}
-                className={`flex items-center py-2 px-3 rounded transition-colors duration-200 ${
+                className={`flex items-center py-2 px-4 rounded transition-colors duration-200 ${
                   isActive ? style.active : style.inactive
                 }`}
                 aria-current={isActive ? "page" : undefined}
