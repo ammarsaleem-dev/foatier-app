@@ -10,7 +10,7 @@ use Illuminate\Routing\Controllers\Middleware;
 use Inertia\Inertia;
 
 class RoleController extends Controller implements HasMiddleware
-{    
+{
 
     public static function middleware()
     {
@@ -35,9 +35,8 @@ class RoleController extends Controller implements HasMiddleware
         $perPage = $request->input('perPage') ?? 10;
         $roles = Role::orderBy('created_at', 'desc')->paginate($perPage);
         return inertia('Role/Browse', ['roles' => $roles]);
-
     }
-    
+
     /**
      * create
      *
@@ -47,7 +46,7 @@ class RoleController extends Controller implements HasMiddleware
     {
         return Inertia::render('Role/Create');
     }
-    
+
     /**
      * store
      *
@@ -58,11 +57,17 @@ class RoleController extends Controller implements HasMiddleware
     {
         $request->validate(['name' => 'required|unique:roles,name']);
         Role::create($request->only('name'));
-        return redirect()->route('role.index')->with('success', 'Role created successfully.');
+        return redirect()->route('role.index')->with(
+            'flash',
+            [
+                'type'    => 'success',
+                'message' => 'Role created successfully!',
+            ]
+        );
     }
 
-    
-      
+
+
     /**
      * show
      *
@@ -75,7 +80,7 @@ class RoleController extends Controller implements HasMiddleware
         return inertia('Role/Show', ['role' => $role]);
     }
 
-    
+
     /**
      * edit
      *
@@ -91,7 +96,7 @@ class RoleController extends Controller implements HasMiddleware
             'permissions' => $permissions
         ]);
     }
-    
+
     /**
      * update
      *
@@ -109,9 +114,16 @@ class RoleController extends Controller implements HasMiddleware
         $role->update(['name' => $request->name]);
         $role->permissions()->sync($request->permissions ?? []);
 
-        return redirect()->route('role.index')->with('success', 'Role updated successfully.');
+        return redirect(route('role.index'))
+            ->with(
+                'flash',
+                [
+                    'type'    => 'success',
+                    'message' => 'Role updated successfully!',
+                ]
+            );
     }
-    
+
     /**
      * destroy
      *
@@ -121,6 +133,12 @@ class RoleController extends Controller implements HasMiddleware
     public function destroy(Role $role)
     {
         $role->delete();
-        return redirect()->route('role.index')->with('success', 'Role deleted successfully.');
+        return redirect()->route('role.index')->with(
+            'flash',
+            [
+                'type'    => 'success',
+                'message' => 'Role deleted successfully!',
+            ]
+        );
     }
 }

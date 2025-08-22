@@ -17,7 +17,7 @@ return [
         'invoices'     => 'Invoices',
         'reports'      => 'Reports',
         'settings'     => 'Settings',
-        'adminstration'=> 'Adminstration',
+        'adminstration' => 'Adminstration',
         'roles'        => 'Roles',
         'permissions'  => 'Permissions',
         'users'        => 'Users'
@@ -78,13 +78,18 @@ return [
     ],
 
     'user' => [
-        'user_title'       => 'Users',
-        'user_id'          => 'ID',
-        'user_name'        => 'Username',
-        'user_email'       => 'Email',
-        'user_role'        => 'Role',
-        'user_created_at'  => 'Created At',
-        'user_updated_at'  => 'Updated At',
+        'user_title'        => 'Users',
+        'user_id'           => 'ID',
+        'user_name'         => 'Name',
+        'user_username'     => 'Username',
+        'user_password'     => 'Password',
+        'user_con_password' => 'Confirm Password',
+        'user_email'        => 'Email',
+        'user_role'         => 'Role',
+        'user_created_at'   => 'Created At',
+        'user_updated_at'   => 'Updated At',
+        'no_role_assigned' => 'No role assigned',
+        'user_show'         => 'User',
     ],
 
     'invoice' => [

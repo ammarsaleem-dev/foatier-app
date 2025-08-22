@@ -52,6 +52,14 @@ class RolesAndPermissionsSeeder extends Seeder
                 'show',
             ],
 
+            'user' => [
+                'index',
+                'create',
+                'update',
+                'delete',
+                'show',
+            ],
+
             'category' => [
                 'index',
                 'create',

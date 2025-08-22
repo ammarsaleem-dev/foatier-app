@@ -11,7 +11,7 @@ use Inertia\Inertia;
 class PermissionController extends Controller implements HasMiddleware
 {
 
-        public static function middleware()
+    public static function middleware()
     {
         return [
             new Middleware('can:viewAny,App\Models\Permission', only: ['index']),
@@ -25,8 +25,8 @@ class PermissionController extends Controller implements HasMiddleware
 
     public function index(Request $request)
     {
-        $perPage = $request->input('perPage')?? 10;
-        $permissions = Permission::orderBy('created_at','desc')->paginate($perPage);
+        $perPage = $request->input('perPage') ?? 10;
+        $permissions = Permission::orderBy('created_at', 'desc')->paginate($perPage);
         return Inertia::render('Permission/Browse', [
             'permissions' => $permissions
         ]);
@@ -41,12 +41,24 @@ class PermissionController extends Controller implements HasMiddleware
     {
         $request->validate(['name' => 'required|unique:permissions,name']);
         Permission::create($request->only('name'));
-        return redirect()->route('permission.index')->with('success', 'Permission created successfully.');
+        return redirect()->route('permission.index')->with(
+            'flash',
+            [
+                'type'    => 'success',
+                'message' => 'Permission created successfully!',
+            ]
+        );
     }
 
     public function destroy(Permission $permission)
     {
         $permission->delete();
-        return redirect()->route('permission.index')->with('success', 'Permission deleted successfully.');
+        return redirect()->route('permission.index')->with(
+            'flash',
+            [
+                'type'    => 'success',
+                'message' => 'Permission deleted successfully!',
+            ]
+        );
     }
 }
