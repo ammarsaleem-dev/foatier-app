@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
@@ -34,6 +35,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::delete('category/bulk-delete/{ids}', [CategoryController::class, 'bulkDelete'])->name('category.bulkDelete');
     Route::resource('category', CategoryController::class);
+    Route::delete('brand/bulk-delete/{ids}', [BrandController::class, 'bulkDelete'])->name('brand.bulkDelete');
+    Route::resource('brand', BrandController::class);
     Route::delete('role/bulk-delete/{ids}', [RoleController::class, 'bulkDelete'])->name('role.bulkDelete');
     Route::resource('role', RoleController::class);
     Route::delete('permission/bulk-delete/{ids}', [PermissionController::class, 'bulkDelete'])->name('permission.bulkDelete');

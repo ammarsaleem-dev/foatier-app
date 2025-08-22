@@ -1,12 +1,12 @@
 import { Link, usePage } from "@inertiajs/react";
 import {
   LayoutDashboard,
+  Package,
   Settings,
   ShieldUser,
   Tag,
-  User,
   UserLock,
-  Users,
+  Users
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { route } from "ziggy-js";
@@ -40,6 +40,13 @@ export default function Sidebar() {
       permission: can("category.index"),
     },
     {
+      name: translations.sidebar.brands,
+      href: route("brand.index"),
+      icon: Package,
+      isActive: component.startsWith("Brand"),
+      permission: can("brand.index"),
+    },
+    {
       name: translations.sidebar.adminstration,
       href: route("permission.index"),
       icon: UserLock,
@@ -67,7 +74,6 @@ export default function Sidebar() {
         },
       ],
     },
-    
   ];
 
   // ✅ Automatically open dropdown if one of its children is active
@@ -175,7 +181,7 @@ export default function Sidebar() {
                               className={`flex items-center py-2 pl-8 rounded transition-colors duration-200 ${
                                 isActive ? style.active : style.inactive
                               }`}
-                              aria-current={isActive ? "page" : undefined}                             
+                              aria-current={isActive ? "page" : undefined}
                             >
                               <Icon
                                 className={`${style.iconBase} ${

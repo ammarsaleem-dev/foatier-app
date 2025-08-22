@@ -12,6 +12,7 @@ return [
         'welcome'      => 'Welcome',
         'dashboard'    => 'Dashboard',
         'categories'   => 'Categories',
+        'brands'   => 'Brands',
         'products'     => 'Products',
         'users'        => 'Users',
         'invoices'     => 'Invoices',
@@ -44,6 +45,16 @@ return [
         'category_updated_at'  => 'Updated At',
         'category_update'      => 'Update Category',
         'category_create'      => 'Create Category',
+    ],
+
+    'brand' => [
+        'brand_title'       => 'Brands',
+        'brand_id'          => 'ID',
+        'brand_name'        => 'Brand Name',
+        'brand_created_at'  => 'Created At',
+        'brand_updated_at'  => 'Updated At',
+        'brand_update'      => 'Update Brand',
+        'brand_create'      => 'Create Brand',
     ],
 
     'role' => [
