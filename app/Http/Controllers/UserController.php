@@ -29,7 +29,7 @@ class UserController extends Controller implements HasMiddleware
     public function index(Request $request)
     {
         $perPage = $request->input('perPage') ?? 10;
-        $users = User::orderBy('created_at', 'desc')->paginate($perPage);
+        $users = User::with('roles')->orderBy('created_at', 'desc')->paginate($perPage);
         return inertia('User/Browse', [
             'users' => $users,
         ]);
@@ -129,8 +129,22 @@ class UserController extends Controller implements HasMiddleware
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        //
+         $user->delete();
+        return redirect(route('user.index'))->with('flash', ['type' => 'success', 'message' => 'User deleted successfully!']);
+    }
+
+      /**
+     * Bulk delete users.
+     */
+    public function bulkDelete($ids)
+    {
+
+        $ids = explode(',', $ids);
+
+        User::whereIn('id', $ids)->delete();
+
+        return redirect(route('user.index'))->with('flash', ['type' => 'success', 'message' => 'Selected users deleted successfully!']);
     }
 }

@@ -141,4 +141,17 @@ class RoleController extends Controller implements HasMiddleware
             ]
         );
     }
+
+      /**
+     * Bulk delete roles.
+     */
+    public function bulkDelete($ids)
+    {
+
+        $ids = explode(',', $ids);
+
+        Role::whereIn('id', $ids)->delete();
+
+        return redirect(route('role.index'))->with('flash', ['type' => 'success', 'message' => 'Selected roles deleted successfully!']);
+    }
 }

@@ -34,7 +34,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::delete('category/bulk-delete/{ids}', [CategoryController::class, 'bulkDelete'])->name('category.bulkDelete');
     Route::resource('category', CategoryController::class);
+    Route::delete('role/bulk-delete/{ids}', [RoleController::class, 'bulkDelete'])->name('role.bulkDelete');
     Route::resource('role', RoleController::class);
+    Route::delete('permission/bulk-delete/{ids}', [PermissionController::class, 'bulkDelete'])->name('permission.bulkDelete');
     Route::resource('permission', PermissionController::class);
+    Route::delete('user/bulk-delete/{ids}', [UserController::class, 'bulkDelete'])->name('user.bulkDelete');
     Route::resource('user', UserController::class);
 });

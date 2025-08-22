@@ -61,4 +61,17 @@ class PermissionController extends Controller implements HasMiddleware
             ]
         );
     }
+
+      /**
+     * Bulk delete permissions.
+     */
+    public function bulkDelete($ids)
+    {
+
+        $ids = explode(',', $ids);
+
+        Permission::whereIn('id', $ids)->delete();
+
+        return redirect(route('permission.index'))->with('flash', ['type' => 'success', 'message' => 'Selected permissions deleted successfully!']);
+    }
 }

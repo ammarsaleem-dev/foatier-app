@@ -78,6 +78,11 @@ export default function Sidebar() {
     }
   }, [component]);
 
+  // Helper to close dropdown when navigating
+  const handleLinkClick = () => {
+    setOpen(false);
+  };
+
   return (
     <aside className="lg:w-1/6 sm:w-1/3 bg-sky-900 text-white flex flex-col">
       <Logo />
@@ -104,6 +109,7 @@ export default function Sidebar() {
                   isActive ? style.active : style.inactive
                 }`}
                 aria-current={isActive ? "page" : undefined}
+                onClick={handleLinkClick}
               >
                 <Icon
                   className={`${style.iconBase} ${
@@ -169,7 +175,7 @@ export default function Sidebar() {
                               className={`flex items-center py-2 pl-8 rounded transition-colors duration-200 ${
                                 isActive ? style.active : style.inactive
                               }`}
-                              aria-current={isActive ? "page" : undefined}
+                              aria-current={isActive ? "page" : undefined}                             
                             >
                               <Icon
                                 className={`${style.iconBase} ${
@@ -196,6 +202,7 @@ export default function Sidebar() {
           className={`flex items-center py-2 px-3 rounded transition-colors duration-200 ${
             component.startsWith("Settings") ? style.active : style.inactive
           }`}
+          onClick={handleLinkClick}
         >
           <Settings
             className={`${style.iconBase} ${

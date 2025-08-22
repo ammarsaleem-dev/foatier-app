@@ -10,6 +10,7 @@ import { usePage } from "@inertiajs/react";
 export default function DataTable({
   title = "Data Table",
   data = [],
+  relatedData = [],
   columns = [],
   className = "",
   loading = false,
@@ -53,7 +54,7 @@ export default function DataTable({
       item.name?.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
     );
   }, [data, debouncedSearchQuery]);
-
+  console.log("roles", filteredData);
   return (
     <div className={`data-table ${className} overflow-x-auto`}>
       <div className="flex justify-between items-center p-2">
@@ -138,6 +139,8 @@ export default function DataTable({
                     <td className="td" key={col.value}>
                       {col.value == "created_at" || col.value == "updated_at"
                         ? new Date(row[col.value]).toLocaleString()
+                        : col.value === relatedData.label
+                        ? row[col.value].map((r) => r[relatedData.value])
                         : row[col.value]}
                     </td>
                   ))}

@@ -14,12 +14,10 @@ export default function Browse({ users }) {
   const allItemIds = users.data.map((item) => item.id);
   const { translations } = usePage().props;
   const { hasRole, can } = useAuth();
-
   const handleDelete = (user) => {
     setIsOpen(true);
     setSelectedUser(user);
   };
-
   const handleShow = (user) => {
     if (!user) return;
     router.get(route("user.show", ("user", user)));
@@ -106,7 +104,7 @@ export default function Browse({ users }) {
     e.preventDefault();
     router.get(route("user.create"));
   };
-  // console.log('canCreate' , can('user.create'));
+
   return (
     <>
       <Head title="Users" />
@@ -116,7 +114,8 @@ export default function Browse({ users }) {
           data={users}
           columns={[
             { label: `${translations.user.user_id}`, value: "id" },
-            { label: `${translations.user.user_name}`, value: "name" },            
+            { label: `${translations.user.user_name}`, value: "name" },
+            { label: "Role", value: "roles" },
             {
               label: `${translations.user.user_created_at}`,
               value: "created_at",
@@ -126,6 +125,11 @@ export default function Browse({ users }) {
               value: "updated_at",
             },
           ]}
+          // the relatedData has some information about the relationship
+          // the label should match the column value
+          // the value is the field to be displayed from the related model
+          // for example, the user roles has the name field belongs to the role model
+          relatedData={{label: "roles", value: 'name'}}
           canCreate={can("user.create")}
           canShow={can("user.show")}
           canUpdate={can("user.update")}
