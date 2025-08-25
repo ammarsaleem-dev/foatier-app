@@ -27,12 +27,18 @@ export default function Show({ user }) {
           {new Date(user.created_at).toLocaleDateString()}
         </div>
 
-        <div className="mt-6">
+        <div className="mt-6 flex justify-between">
           <a
             href={route("user.index")}
             className="inline-block text-sm text-gray-600 hover:text-sky-600 transition"
           >
-            ← {translations.actions.back}
+            {translations.actions.back}
+          </a>
+          <a
+            href={route("user.edit", user.id)}
+            className="inline-block text-sm text-blue-600 hover:text-blue-800 transition"
+          >
+            Edit
           </a>
         </div>
       </div>

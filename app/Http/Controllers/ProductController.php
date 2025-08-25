@@ -163,4 +163,27 @@ class ProductController extends Controller implements HasMiddleware
                 ]
             );
     }
+
+
+    public function bulkDelete($ids)
+    {
+        $ids = explode(',', $ids);
+        
+        $products = Product::whereIn('id', $ids)->get();
+
+        foreach ($products as $product) {
+            if ($product->image) {
+                Storage::disk('public')->delete($product->image);
+            }
+            $product->delete();
+        }
+
+        return redirect()->route('product.index')->with(
+            'flash',
+            [
+                'type'    => 'success',
+                'message' => 'Selected products deleted successfully!',
+            ]
+        );
+    }
 }

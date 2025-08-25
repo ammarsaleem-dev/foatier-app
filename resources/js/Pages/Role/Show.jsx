@@ -4,8 +4,8 @@ import { route } from "ziggy-js";
 
 export default function Show({ role }) {
   const { translations } = usePage().props;
-';'
- console.log(role);
+  (";");
+  console.log(role);
 
   return (
     <div className="flex items-center justify-center p-6">
@@ -32,9 +32,9 @@ export default function Show({ role }) {
             <LockIcon className="w-5 h-5 text-sky-600" />
             {translations.permission.permission_title}
           </h2>
-            
+
           {role.permissions && role.permissions.length > 0 ? (
-            <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 overflow-auto">
+            <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 overflow-y-auto max-h-60">
               {role.permissions.map((permission) => (
                 <li
                   key={permission.id}
@@ -53,12 +53,18 @@ export default function Show({ role }) {
         </div>
 
         {/* Back Link */}
-        <div className="mt-6 text-center">
+        <div className="mt-6 flex justify-between">
           <a
             href={route("role.index")}
             className="inline-block text-sm text-gray-600 hover:text-sky-600 transition"
           >
-            ← {translations.actions.back}
+            {translations.actions.back}
+          </a>
+          <a
+            href={route("role.edit", role.id)}
+            className="inline-block text-sm text-blue-600 hover:text-blue-800 transition"
+          >
+            Edit
           </a>
         </div>
       </div>
