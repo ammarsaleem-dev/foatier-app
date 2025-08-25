@@ -54,7 +54,6 @@ export default function DataTable({
       item.name?.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
     );
   }, [data, debouncedSearchQuery]);
-  console.log("roles", filteredData);
   return (
     <div className={`data-table ${className} overflow-x-auto`}>
       <div className="flex justify-between items-center p-2">
