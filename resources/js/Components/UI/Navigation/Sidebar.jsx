@@ -4,9 +4,10 @@ import {
   Package,
   Settings,
   ShieldUser,
+  Store,
   Tag,
   UserLock,
-  Users
+  Users,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { route } from "ziggy-js";
@@ -45,6 +46,13 @@ export default function Sidebar() {
       icon: Package,
       isActive: component.startsWith("Brand"),
       permission: can("brand.index"),
+    },
+    {
+      name: translations.sidebar.products,
+      href: route("product.index"),
+      icon: Store,
+      isActive: component.startsWith("Product"),
+      permission: can("product.index"),
     },
     {
       name: translations.sidebar.adminstration,
@@ -93,7 +101,7 @@ export default function Sidebar() {
     <aside className="lg:w-1/6 sm:w-1/3 bg-sky-900 text-white flex flex-col">
       <Logo />
 
-      <nav className="flex-1 p-4 space-y-1">
+      <nav className="flex-1 p-4 space-y-1 text-sm">
         {navItems.map(
           (
             {

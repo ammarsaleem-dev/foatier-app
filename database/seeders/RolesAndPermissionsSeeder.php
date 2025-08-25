@@ -76,6 +76,14 @@ class RolesAndPermissionsSeeder extends Seeder
                 'show',
             ],
 
+              'product' => [
+                'index',
+                'create',
+                'update',
+                'delete',
+                'show',
+            ],
+
         ];
 
         foreach ($permissions as $permKey => $permValue) {

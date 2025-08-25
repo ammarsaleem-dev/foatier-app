@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         // php artisan migrate:fresh --seed
 
         // You can call other seeders here
-        Category::factory(50)->create();
+        // Category::factory(50)->create();
         $this->call([
             RolesAndPermissionsSeeder::class,
         ]);

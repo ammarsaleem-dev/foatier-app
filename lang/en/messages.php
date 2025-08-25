@@ -57,6 +57,16 @@ return [
         'brand_create'      => 'Create Brand',
     ],
 
+    'product' => [
+        'product_title'       => 'Products',
+        'product_id'          => 'ID',
+        'product_name'        => 'Product Name',
+        'product_created_at'  => 'Created At',
+        'product_updated_at'  => 'Updated At',
+        'product_update'      => 'Update Product',
+        'product_create'      => 'Create Product',
+    ],
+
     'role' => [
         'role_title'       => 'Roles',
         'role_id'          => 'ID',
@@ -75,17 +85,6 @@ return [
         'permission_updated_at'  => 'Updated At',
         'permission_update'      => 'Update Permission',
         'permission_create'      => 'Create Permission',
-    ],
-
-    'product' => [
-        'product_title'       => 'Products',
-        'product_id'          => 'ID',
-        'product_name'        => 'Product Name',
-        'product_price'       => 'Price',
-        'product_stock'       => 'Stock',
-        'product_category'    => 'Category',
-        'product_created_at'  => 'Created At',
-        'product_updated_at'  => 'Updated At',
     ],
 
     'user' => [
