@@ -52,6 +52,7 @@ npm install
 ## Usage
 
 ```bash
+php artisan serve
 npm start
 ```
 
